@@ -84,9 +84,11 @@ Checking for changes:
 
 <br>typescript:
 <br>1.constructor中，当用public定义变量的时候，例如，
-<br>"constructor(
-    @inject('pinService') public pinService: pinService
-  )"
+
+        "constructor(
+            @inject('pinService') public pinService: pinService
+          )"
+
 <br>这里public的用法是，首先在这个class上定义变量pinService，把解析@inject('pinService')后的值赋给pinService，其次是
 下面就可以直接用this.pinService来调用这个变量了，也就是直接把变量绑定到this上。
 
@@ -97,49 +99,63 @@ Checking for changes:
 <br>2.
 <br>NgSwitch:Sometimes you need to render different elements depending on a given condition.
 <br>example:
-"<div class="container">
-<div *ngIf="myVar == 'A'">Var is A</div>
-<div *ngIf="myVar == 'B'">Var is B</div>
-<div *ngIf="myVar != 'A' && myVar != 'B'">Var is something else</div>
-</div>"
+
+        "<div class="container">
+          <div *ngIf="myVar == 'A'">Var is A</div>
+          <div *ngIf="myVar == 'B'">Var is B</div>
+          <div *ngIf="myVar != 'A' && myVar != 'B'">Var is something else</div>
+        </div>"
+
 <br>or
-<br>"<div class="container" [ngSwitch]="myVar">
-<div *ngSwitchWhen="'A'">Var is A</div>
-<div *ngSwitchWhen="'B'">Var is B</div>
-<div *ngSwitchDefault>Var is something else</div>
-</div>
-"
+        "<div class="container" [ngSwitch]="myVar">
+            <div *ngSwitchWhen="'A'">Var is A</div>
+            <div *ngSwitchWhen="'B'">Var is B</div>
+            <div *ngSwitchDefault>Var is something else</div>
+        </div>
+        "
 <br>3.
 <br>NgStyle:With the NgStyle directive, you can set a given DOM element CSS properties from Angular expressions.
 <br>example:
-<br>"<div [ngStyle]="{color: 'white', 'background-color': 'blue'}"> Uses fixed white text on blue background
-</div>
-<div [style.background-color]="colorinput.value" style="color: white;">
-{{ colorinput.value }} background </div>
-"
+
+        "<div [ngStyle]="{color: 'white', 'background-color': 'blue'}">
+        Uses fixed white text on blue background
+        </div>
+        <div [style.background-color]="colorinput.value" style="color: white;">
+        {{ colorinput.value }} background </div>
+        "
+
 <br>4.
 <br>NgClass:The first way to use this directive is by passing in an object literal. The object is expected to have the keys as the class names and the values should be a truthy/falsy value to indicate whether the class should be applied or not.
 <br>example:
-<br>".bordered {
-border: 1px dashed black; background-color: #eee;
-}
-<div [ngClass]="{bordered: false}">This is never bordered</div> <div [ngClass]="{bordered: true}">This is always bordered</div>
-"
+
+        ".bordered {
+        border: 1px dashed black; background-color: #eee;
+        }
+        <div [ngClass]="{bordered: false}">
+          This is never bordered</div>
+          <div [ngClass]="{bordered: true}">
+          This is always bordered</div>
+        </div>
+        "
+
 <br>5.
 <br>NgFor:The role of this directive is to repeat a given DOM element (or a collection of DOM elements), each time passing it a different value from an array.
 <br>examples:
-<br>"this.cities = ['Miami', 'Sao Paulo', 'New York'];
-  <h4 class="ui horizontal divider header"> Simple list of strings
-  </h4>
-  <div class="ui list" *ngFor="let c of cities";let num = index"> <div class="item">{{ c }}</div></div>
-"
+
+          this.cities = ['Miami', 'Sao Paulo', 'New York'];
+          <h4 class="ui horizontal divider header"> Simple list of strings
+          </h4>
+          <div class="ui list" *ngFor="let c of cities";let num = index">
+          <div class="item">{{ c }}</div></div>
+
 <br>6.
 <br>NgNonBindable:We use ngNonBindable when we want tell Angular not to compile or bind a particular section of our page.
 <br>examples:
-<br>"<div>
-  <span class="bordered">'{{' content '}}'</span>
-  <span class="pre" ngNonBindable>&larr; This is what'{{ 'content' }}'rendered </span>
-</div>"
+
+        "<div>
+          <span class="bordered">'{{'content '}}'</span>
+          <span class="pre" ngNonBindable>&larr; This is what'{{ 'content' }}'rendered </span>
+        </div>"
 
 <br>Angular2 Router:
 <br>1.改变路由从一个url到另一个url的过程如下：
