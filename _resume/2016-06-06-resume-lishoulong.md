@@ -4,6 +4,7 @@ title: resume - lishoulong
 ---
 
 {{ page.title }}
+06 June 2016 - Beijing
 ================
 
 <div >
@@ -34,7 +35,7 @@ title: resume - lishoulong
           完成分页模块的开发。
         </div>
         <div class="timeline-footer">
-          <span>在公司完成了3个项目，因为学习工作遇到瓶颈，想看机会。</span>
+          <span>在公司完成了3个项目</span>
         </div>
       </div>
     </li>
