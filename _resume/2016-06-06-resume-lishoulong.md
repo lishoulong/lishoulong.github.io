@@ -65,22 +65,6 @@ title: resume - lishoulong
             10 june. 2013 - 10 july. 2015
           </span>
     </li>
-    <li>
-      <img src="../../../images/randstad-logo.png" alt="logo">
-
-      <div class="timeline-item">
-        <span class="time"><i class="fa fa-clock-o"></i> 招聘业务</span>
-
-        <h3 class="timeline-header"><a href="#">randstad</a> 招聘专员</h3>
-
-        <div class="timeline-body">
-          各种互联网技术职位招聘，最后我也从招聘者转到了被招聘者。
-        </div>
-        <div class="timeline-footer">
-          <span>离职这里后开始转行</span>
-        </div>
-      </div>
-    </li>
     <li class="time-label">
           <span class="bg-red">
             2009.09-2013-07
