@@ -48,7 +48,7 @@ title: webpack loaders
                 [hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
                 //注意“！”用来分隔各个loaders，查询参数的格式等同于，http get后的“? & =”,
                 //尤其在上面这种链式loaders中有用，链式执行loaders的顺序是从右至左，先引入scss
-                //文件，用sass loader处理，sourceMap表示编译后也能查看源文件，需要chrome开
+                //文件，用sass loader处理，sourceMap表示编译后也能查看源文件，这里尤其要注意，sourceMap需要与moduls和LocalIdentName搭配使用，否则会报无法找到源文件的错误。（血泪教训啊）需要chrome开
                 //启sourcemap选项，输出文件格式不是压缩的。处理后的结果传递给antoprefixer－loader
                 //，但是只支持主流浏览器的最近的两个版本。再通过css－loader处理，文件名字hash处理。
                 //最后经过style－loader。
