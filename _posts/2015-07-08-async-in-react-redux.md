@@ -65,4 +65,5 @@ title: async in react redux
           empty() {}
         }
 
-<br>我们知道，在redux中，store,action,middleware的流程是，首先定义action（异步action的定义一般是 {type:**,promise:**}）, 然后调用store的dispatch方法出发action,redux中只允许有一个store，和一个根reducer，通过combinereducer把多个reducer合并成一个reducer，被diapatch的action目标是进入reducer，但是进入reducer之前需要经过各个中间件，这种异步的情况来说，一般会定义一个promise中间件，传入client参数，这个client参数做的事情如上，也就是处理http请求，返回请求的数据，而promise中间件会把client promise化，在then的回调函数中，对于如果成功就执行next({...rest, result, type: SUCCESS})，否则执行next({...rest, error, type: FAILURE})，然后数据会经过其他中间件，最后到达reducer，reducer通过action.result来取得返回的数据。
+<br>我们知道，在redux中，store,action,middleware的流程是，首先定义action（异步action的定义一般是 {type:**,promise:**}）, 然后调用store的dispatch方法触发action,redux中只允许有一个store，和一个根reducer，通过combinereducer把多个reducer合并成一个reducer，被diapatch的action目标是进入reducer，但是进入reducer之前需要经过各个中间件，这种异步的情况来说，创建一个中间件例如createMiddleware，把superAgent所在的方法作为参数传递给中间件，在中间件里对action进行过滤，筛选出定义为{type:**,promise:**}形式的action，然后把superAgent方法作为参数传递进入action的promise方法中，把得到的数据保存起来传递进入reducer中。
+<br>这个superAgent方法做的事情如上，也就是处理http请求，根据运行的环境确定url是否带api/或者是config.host,config.port，然后后台根据这些url，通过路由来实现对中间件的过滤，分发对应的方法。而在createMiddleware中，根据请求返回数据的成功情况，来确定then的回调函数，如果成功就执行next({...rest, result, type: SUCCESS})，否则执行next({...rest, error, type: FAILURE})，然后数据会经过其他中间件，最后到达reducer，reducer通过action.result来取得返回的数据。
