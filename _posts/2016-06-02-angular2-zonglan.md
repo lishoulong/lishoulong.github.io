@@ -44,12 +44,12 @@ Checking for changes:
 <br>但是有几个方面Zones是检测不到了，主要是如下场景
 <br>1.当异步执行一个第三方库的时候。
 <br>2.对于不可改变的数据（immutable data）
-<br>3.Observables（是Rxjs的一部分，也是异步的解决方案。）
+<br>3.Observables（是Rxjs的一部分，也是异步的解决方案，同时是处理数据的一种方案。）
 <br>这时候ChangeDetectionStrategy.OnPush就可以解决这些场景。
 
 <br>angular2核心库常用组件：
 <br>@angular/common：<br>CORE_DIRECTIVES,FORM_DIRECTIVES,FormBuilder,ControlGroup,Validators,AbstractControl,Control，
- ROUTER_DIRECTIVES,ROUTER_PROVIDERS,RouteDefinition,RouterLocationStrategy,<br>HashLocationStrategy,APP_BASE_HREF,CORE_DIRECTIVES,NGIF,
+ ROUTER_DIRECTIVES,ROUTER_PROVIDERS,RouteDefinition,RouterLocationStrategy,HashLocationStrategy,APP_BASE_HREF,CORE_DIRECTIVES,NGIF,
 
 <br>@angular/core核心库常用组件：
 <br>生命周期类型：<br>Oninit,OnDestroy,DoCheck,Onchanges,AfterViewInit,AfterViewChecked,AfterContentinit,AfterContentChecked,
@@ -89,8 +89,7 @@ Checking for changes:
             @inject('pinService') public pinService: pinService
           )"
 
-<br>这里public的用法是，首先在这个class上定义变量pinService，把解析@inject('pinService')后的值赋给pinService，其次是
-下面就可以直接用this.pinService来调用这个变量了，也就是直接把变量绑定到this上。
+<br>这里public的用法是，首先在这个class上定义变量pinService，把解析@inject('pinService')后的值赋给pinService，其次是下面就可以直接用this.pinService来调用这个变量了，也就是直接把变量绑定到this上。
 
 <br>Built-in Components:
 <br>1.
@@ -157,7 +156,7 @@ Checking for changes:
           <span class="pre" ngNonBindable>&larr; This is what'{{ 'content' }}'rendered </span>
         </div>"
 
-<br>Angular2 Router:
+<br> Angular2 Router:
 <br>1.改变路由从一个url到另一个url的过程如下：
 <div class="router-image"><img src="../../../images/router-change.jpeg"></div>
 <br>比如从lonin route到protected route 经历如下阶段：
