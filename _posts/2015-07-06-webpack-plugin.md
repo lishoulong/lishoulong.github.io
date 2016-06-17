@@ -87,6 +87,26 @@ title: webpack plugin
 <br>--https: 在HTTPS协议时，使用webpack-dev-server。
 <br>--open:再默认浏览器中打开URL（需要webpack-dev-server versions > 2.0）
 <br>--history-api-fallback:支持history API fallback。
+<br>(4)Combining with an existing server
+Should not use the webpack-dev-server as a backend. Its only purpose is to serve static (webpacked) assets.Can run two servers side-by-side: The webpack-dev-server and your backend server.
+<br>When running on a HTML-page sent by the backend server,in order to teach the webpack-generated assets to make requests to the webpack-dev-server,you need to provide a full URL in the output.publicPath option.
+<br>If you need a websocket connection to your backend server, you’ll have to use iframe mode.
+<br># webpack-dev-server contentBase = "http://localhost:9090/" (--content-base).
+<br># open http://localhost:8080/webpack-dev-server/.
+
+        Summary and example:
+
+        webpack-dev-server on port 8080.
+        backend server on port 9090.
+        generate HTML pages with <script src="http://localhost:8080/assets/bundle.js">.
+        webpack configuration with output.publicPath = "http://localhost:8080/assets/".
+        when compiling files for production, use --output-public-path /assets/.
+        inline mode:
+        --inline.
+        open http://localhost:9090.
+        or iframe mode:
+        webpack-dev-server contentBase = "http://localhost:9090/" (--content-base).
+        open http://localhost:8080/webpack-dev-server/.
 
 <br>3.webpack plugin
 <br>(1)CleanWebpackPlugin:作用是在编译文件前，把编译文件目标目录清空。

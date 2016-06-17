@@ -32,10 +32,11 @@ title: async in react redux
 <br>其中helpers.client是一个http客户端从后台获取数据的插件，一般是应用superAgent和Axios，这里我们应用前者，下面是具体应用，通过promise绑定的数据，这样我们就可以应用then来处理返回的数据。
 
         export default class ApiClient {
-          constructor(req) {
+          constructor(req) {    //这里req指的是服务器request对象的serverRequest。
             methods.forEach((method) =>
               this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
-                const request = superagent[method](formatUrl(path));
+                const request = superagent[method](formatUrl(path));  
+                //request指的是客户端请求的request.
 
                 if (params) {
                   request.query(params);
@@ -43,6 +44,7 @@ title: async in react redux
 
                 if (__SERVER__ && req.get('cookie')) {
                   request.set('cookie', req.get('cookie'));
+                  //这里req指的是服务器request对象的serverRequest。
                 }
 
                 if (data) {
