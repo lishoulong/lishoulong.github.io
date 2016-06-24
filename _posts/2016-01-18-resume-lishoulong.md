@@ -12,7 +12,7 @@ title: resume - lishoulong
     <!-- timeline time label -->
     <li class="time-label">
           <span class="bg-red">
-            10 oct. 2015-now
+            10 june. 2015-now
           </span>
     </li>
     <!-- /.timeline-label -->
@@ -40,28 +40,7 @@ title: resume - lishoulong
     </li>
     <li class="time-label">
           <span class="bg-red">
-            10 july. 2015 - 10 oct. 2015
-          </span>
-    </li>
-    <li>
-      <img src="../../../images/zhibo-logo.jpg" alt="logo">
-
-      <div class="timeline-item">
-        <span class="time"><i class="fa fa-clock-o"></i> 视频直播业务</span>
-
-        <h3 class="timeline-header"><a href="#">直播吧</a> 前端开发工程师</h3>
-
-        <div class="timeline-body">
-          从拿到PSD图片，利用PS切图，CSS Sprite等方式生成网页。利用bootstrap做UI架构；用Jquery，javascript实现整体的交互设计，包括官网首页，登记注册页面。
-        </div>
-        <div class="timeline-footer">
-          <span>公司项目裁掉，所以离职。</span>
-        </div>
-      </div>
-    </li>
-    <li class="time-label">
-          <span class="bg-red">
-            10 june. 2013 - 10 july. 2015
+            10 june. 2013 - 10 june. 2015
           </span>
     </li>
     <li>
