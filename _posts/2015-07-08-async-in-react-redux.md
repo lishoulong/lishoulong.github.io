@@ -22,12 +22,15 @@ title: async in react redux
 
 <br>2.asyncConnect decorator，用来修饰连接到路由的组件，例如如下，可以通过this.props.lunches直接取得异步取得的数据。
 
-        @asyncConnect({
-          lunches: (params, helpers) => helpers.client.get('/lunches')
-        })
-        export default class Home extends Component {
-          // ...
-        }
+        @asyncConnect([{
+          deferred: true,  //这里是实现即使数据没有请求回来页加载页面的关键。
+          promise: ({store: {dispatch, getState}}) => {
+            if (!isLoaded(getState())) {
+              console.log('asyncConnect');
+              return dispatch(loadWidgets());
+            }
+          }
+        }])
 
 <br>其中helpers.client是一个http客户端从后台获取数据的插件，一般是应用superAgent和Axios，这里我们应用前者，下面是具体应用，通过promise绑定的数据，这样我们就可以应用then来处理返回的数据。
 
