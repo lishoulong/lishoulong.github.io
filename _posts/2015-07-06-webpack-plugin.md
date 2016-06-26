@@ -108,6 +108,32 @@ Should not use the webpack-dev-server as a backend. Its only purpose is to serve
         webpack-dev-server contentBase = "http://localhost:9090/" (--content-base).
         open http://localhost:8080/webpack-dev-server/.
 
+<br>(5) 通过webpack-dev-middleware and webpack-hot-middleware来实现webpack－dev－server以及hotmodule replacement。
+具体dev－server文件的相关配置如下：
+
+        var app = new Express();
+
+        app.use(require('webpack-dev-middleware')(compiler, serverOptions));
+        app.use(require('webpack-hot-middleware')(compiler));
+
+webpack congig的相关配置如下：
+
+        entry: {
+          'main': [
+            'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr'
+          ]
+        },
+        output: {
+          path: assetsPath,
+          filename: '[name]-[hash].js',
+          chunkFilename: '[name]-[chunkhash].js',
+          publicPath: 'http://' + host + ':' + port + '/dist/'
+        },
+        plugins: [
+          // hot reload
+          new webpack.HotModuleReplacementPlugin(),
+          })
+
 <br>3.webpack plugin
 <br>(1)CleanWebpackPlugin:作用是在编译文件前，把编译文件目标目录清空。
 <br>用法：@params（编译文件目录）
