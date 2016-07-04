@@ -42,7 +42,7 @@ title: webpack plugin
 <br>2. webpack-dev-server
 <br>定义：是个小的nodejs express类型的server，应用webpack-dev-middleware 和文件联系到一起，这个server把编译状态传递给客户端。
 <br>特点：
-<br>(1).支持多种自动刷新页面的模式，Iframe mode和Inline mode，这两种模式都支持Hot Module Replacement，可以在有变动发生的时候，只是局部更新，不用全局刷新。值得注意的是，Inline mode的实现需要在命令行使用--inline，这样能把webpack-dev-server客户端入口加入到webpack的配置文件中。因为webpack-dev-server不能获取到webpack 配置中的文件，所以需要把“webpack-dev-server/client?http://<path>:<port>/”， 添加到webpack配置的入口文件中。
+<br>(1).支持多种自动刷新页面的模式，Iframe mode和Inline mode，这两种模式都支持Hot Module Replacement，可以在有变动发生的时候，只是局部更新，不用全局刷新。值得注意的是，Inline mode的实现需要在命令行使用--inline，这样能把webpack-dev-server客户端入口加入到webpack的配置文件中。因为webpack-dev-server不能获取到webpack 配置中的文件，所以需要把“webpack-dev-server/client?http://<path>:<port>/”， 添加到webpack配置的入口文件中，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render。
 <br>例如：
 
         var config = require("./webpack.config.js");
