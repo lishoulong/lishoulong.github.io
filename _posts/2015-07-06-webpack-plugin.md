@@ -215,4 +215,5 @@ webpack congig的相关配置如下：
         ]
 
 <br>（8）webpack.optimize.OccurenceOrderPlugin
-作用：用来控制编译后的模块在app中出现的顺序。记着是有个地方必须要它才行，忘了是哪里，想起来的时候补上。
+作用：用来控制编译后的模块在app中出现的顺序。Varies the distribution of the ids to get the smallest id length
+* for often used ids.记着是有个地方必须要它才行，忘了是哪里，想起来的时候补上。
