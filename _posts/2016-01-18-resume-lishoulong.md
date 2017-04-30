@@ -18,7 +18,7 @@ title: resume - lishoulong
     <!-- /.timeline-label -->
     <!-- timeline item -->
     <li>
-      <img src="../../../images/logo2.jpg" alt="logo">
+      <img src="../../../img/logo2.jpg" alt="logo">
 
       <div class="timeline-item">
         <span class="time"><i class="fa fa-clock-o"></i>大数据舆情业务</span>
@@ -44,7 +44,7 @@ title: resume - lishoulong
           </span>
     </li>
     <li>
-      <img src="../../../images/randstad-logo.png" alt="logo">
+      <img src="../../../img/randstad-logo.png" alt="logo">
 
       <div class="timeline-item">
         <span class="time"><i class="fa fa-clock-o"></i> 招聘业务</span>
@@ -65,7 +65,7 @@ title: resume - lishoulong
           </span>
     </li>
     <li>
-      <img src="../../../images/school-logo.jpg" alt="logo">
+      <img src="../../../img/school-logo.jpg" alt="logo">
 
       <div class="timeline-item">
         <span class="time">211院校</span>
@@ -86,7 +86,7 @@ title: resume - lishoulong
           </span>
     </li>
     <li>
-      <img src="../../../images/react.jpg" alt="logo">
+      <img src="../../../img/react.jpg" alt="logo">
 
       <div class="timeline-item">
         <h3 class="timeline-header">技术方向</h3>

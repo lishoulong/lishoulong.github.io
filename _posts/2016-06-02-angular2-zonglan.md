@@ -158,7 +158,7 @@ Checking for changes:
 
 <br> Angular2 Router:
 <br>1.改变路由从一个url到另一个url的过程如下：
-<div class="router-image"><img src="../../../images/router-change.jpeg"></div>
+<div class="router-image"><img src="../../../img/router-change.jpeg"></div>
 <br>比如从lonin route到protected route 经历如下阶段：
 <br>1. LoginComponent.canReactivate if return is false, stops;
 <br>2. LoginComponent.canDeactivate if return is false, stops;
