@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Designer, Architect, Developer
+id: "designer-architect"
 ---
 
 {{ page.title }}
