@@ -1,0 +1,118 @@
+---
+title: Portfolio
+layout: default
+---
+
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Fred - Timeline</title>
+		<link rel="stylesheet" type="text/css" href="css/timeline.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container" style="margin:0;padding:0;width:100%;">
+			<header>
+				<img width="175" height="175" style="border-radius:50%;" src="/img/avatar-fred.jpg">
+				<h1>Fred</h1>
+				<p>passioning for the edge technology</p>
+			</header>
+			<div class="main">
+				<ul class="cbp_tmtimeline">
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="boxoffice">58同城</h2>
+							<time>2016.07</time>
+							<img src="../img/zhuanzhuan.png">
+							<ul>
+								<li>
+									Focused on the zhuanzhuan business in the 58app, ganjiapp, wechat wallet and wechat official account;
+									mainly using the vue framework, vuex for data managing, vue router for the navigation;
+									I am studying the android and ios, now focusing on the React-Native.
+								</li>
+								<li class="skill">
+									<span><b>JS</b></span>
+									<span class="i-vue"></span>
+									<span class="link"><a target="_blank" href="https://m.zhuanzhuan.58.com/Mzhuanzhuan/zz58app/mine">Try it</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="boxoffice">Wise Web</h2>
+							<time>2015.06</time>
+							<img src="../img/logo2.jpg">
+							<ul>
+								<li>
+									using the react doing internal system product.
+								</li>
+								<li class="skill">
+									<span class="cbp_tmicon-phone"></span>
+									<span><b>JS</b></span>
+									<span class="i-react"></span>
+									<span class="link"><a target="_blank" href="#">waiting...</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="busyweek">HR</h2>
+							<time>2013.09</time>
+							<img src="../img/randstad-logo.png">
+							<ul>
+								<li>
+									recruiting, employing ...
+								</li>
+								<li class="skill">
+									<span class="cbp_tmicon-phone"></span>
+									<span><b>soft</b></span>
+									<span class="i-vue"></span>
+									<span class="link"><a target="_blank" href="#">You will not want to see it!</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				{% if site.disqus_username %}
+				<!-- disqus Share start -->
+					<div id="disqus_thread"></div>
+					<style type="text/css">
+							#disqus_thread{
+								margin-top: 20px;
+							}
+					</style>
+				<!-- disqus Share end-->
+				{% endif %}
+			</div>
+		</div>
+
+
+		{% if site.disqus_username %}
+		<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+		<script>
+		  /**
+		  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+		  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+		  var disqus_config = function () {
+		    this.page.url = "{{site.url}}{{page.url}}";  // Replace PAGE_URL with your page's canonical URL variable
+		    this.page.identifier = "{{page.id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+		  };
+		  (function() { // DON'T EDIT BELOW THIS LINE
+		  var d = document, s = d.createElement('script');
+		  s.src = 'https://lishoulong-com.disqus.com/embed.js';
+		  s.setAttribute('data-timestamp', +new Date());
+		  (d.head || d.body).appendChild(s);
+		  })();
+		</script>
+		<noscript>
+		  Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+		</noscript>
+		<!-- disqus 公共JS代码 end -->
+		{% endif %}
+	</body>
+</html>
