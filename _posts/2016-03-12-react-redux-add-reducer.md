@@ -3,10 +3,6 @@ layout: post
 title: react+redux+api,how to add a reducer
 ---
 
-<h1>{{ page.title }}</h1>
-
-12 March 2016 - Beijing
-
 <br>The process of adding a reducer in the react.
 <br>1.First define the action，including the defination of the action types in the type file, returning the promise;
 

@@ -3,9 +3,6 @@ layout: post
 title: angular2－总览
 ---
 
-<h1>{{ page.title }}</h1>
-
-02 June 2016 - Beijing
 <br>angular1和angular2大的变动部分：
 <br>广义上讲：
 <br>angular1包含5部分：

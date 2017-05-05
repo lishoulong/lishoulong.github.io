@@ -4,11 +4,6 @@ title: Designer, Architect, Developer
 id: "designer-architect"
 ---
 
-{{ page.title }}
-================
-
-<p class="meta">11 Dec 2010 - San Francisco</p>
-
 Over the last six years I’ve bootstrapped three successful enterprises (Cube6 Media, Gravatar, and GitHub) and failed to gain traction with a handful of others. After a lot of thought and reflections on these experiences, I’ve identified three major skills that should be present in order to best build a successful web application. These roles can be loosely defined as the Designer, the Architect, and the Developer.
 
 In college I spent a lot of time in the campus dark room dipping rolls of film and sheets of paper into various chemical baths beneath a dim red light. The most interesting part, though, was mounting the negative into the projector and exposing the photo paper. Every time I turned on the bright light of the projector I was reminded of a saying that has stuck with me ever since: “A photograph is nothing more than an image created by light.” Think about that for a second. The only way the photograph, and hence, the viewer, interact with the original subject is via the light that was captured. None of the fancy flashes, soft boxes, bounces, umbrellas, or backdrops mean a thing if the light they produce or redirect is in the wrong place. If the light is bad, the photograph is bad.

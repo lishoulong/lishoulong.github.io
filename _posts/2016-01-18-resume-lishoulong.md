@@ -3,9 +3,6 @@ layout: resume
 title: resume - lishoulong
 ---
 
-{{ page.title }}
-================
-
 <div >
   <!-- The time line -->
   <ul class="timeline">

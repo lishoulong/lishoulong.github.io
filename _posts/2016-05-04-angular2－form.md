@@ -3,10 +3,6 @@ layout: post
 title: angular2表单经验分享
 ---
 
-<h1>{{ page.title }}</h1>
-
-4 May 2016 - Beijing
-
 <br>上段时间看了一本angular2的书籍“ng－book2”，感觉很多地方讲的很深入，所以这里拿出来分享一下我的心得。
 <br>form表单
 <br>框架的表单之前用的比较多的是bootstrap自带表单，以及react系的redux form，感觉用angular <br>form还是不错的。

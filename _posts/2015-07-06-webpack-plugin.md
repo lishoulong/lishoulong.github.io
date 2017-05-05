@@ -3,10 +3,6 @@ layout: post
 title: webpack plugin
 ---
 
-<h1>{{ page.title }}</h1>
-
-06 July 2015 - Beijing
-
 <br>1.webpack-merge
 <br>作用：在阐述这个plugin前先铺垫几个方法。
 <br>首先，我们知道webpack的配置根据不同的环境会有不同的配置，例如test，development，production等环境，并且依赖管理文件package.json中的scripts项中，会定义一些列变量，然后通过npm run (#varable)就可以自行变量对应的命令。这时候就需要有一种方式可以在webpack的配置文件中取到package.json scripts中的变量值。通过process.env.npm_lifecycle_event就可以实现，我们把它赋值给target。

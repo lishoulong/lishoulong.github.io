@@ -3,10 +3,6 @@ layout: post
 title: npm version
 ---
 
-<h1>{{ page.title }}</h1>
-
-06 June 2016 - Beijing
-
 This post mainly refer to the npm dependencies version(ie,the difference between ~ and ^).
 
 In the simplest terms, the tilde matches the most recent minor version (the middle number). ~1.2.3 will match all 1.2.x versions but will miss 1.3.0.

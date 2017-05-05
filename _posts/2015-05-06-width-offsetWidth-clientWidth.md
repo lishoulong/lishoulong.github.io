@@ -3,10 +3,6 @@ layout: post
 title: width offsetWidth clientWidth比较
 ---
 
-<h1>{{ page.title }}</h1>
-
-06 May 2015 - Beijing
-
 <br>First.width相关
 <br>1、offsetWidth (width+padding+border)
 <br>表示当前对象的宽度，style.width也是当前对象的宽度(width+padding+border)。

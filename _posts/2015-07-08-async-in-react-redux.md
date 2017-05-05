@@ -3,10 +3,6 @@ layout: post
 title: async in react redux
 ---
 
-<h1>{{ page.title }}</h1>
-
-08 July 2015 - Beijing
-
 <br>最近看了很多react－redux相关的repositories,一般来说在redux中异步获取存储数据是通过，redux相关的thunk－middleware,promise-middleware等中间件，通过把异步施加到action上来实现，通过reducer把请求来的数据存储到返回的状态中，然后通过Props把数据传入container中。
 <br>这里主要提到redux-async-connect:
 <br>这个包的主要特点是：

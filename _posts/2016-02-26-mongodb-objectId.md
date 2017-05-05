@@ -3,10 +3,6 @@ layout: post
 title: mongodb objectId
 ---
 
-<h1>{{ page.title }}</h1>
-
-06 Sep 2015 - Beijing
-
 <br>最近用到mongodb，想起来一个之前面试被问到的一个问题，终于抽时间解决了。
 <br>objectId,作为mongo中区别各个文章的唯一标识符，是由12位字节组成，例如：
 

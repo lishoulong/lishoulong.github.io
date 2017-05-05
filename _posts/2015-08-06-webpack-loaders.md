@@ -3,10 +3,6 @@ layout: post
 title: webpack loaders
 ---
 
-<h1>{{ page.title }}</h1>
-
-06 Aug 2015 - Beijing
-
 <br>some ways of configuring loaders。
 <br>可以参考https://forum.shakacode.com/t/understanding-the-webpack-module-bundler/336
 

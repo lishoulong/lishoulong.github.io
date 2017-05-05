@@ -3,11 +3,6 @@ layout: post
 title: Open Source (Almost) Everything
 ---
 
-{{ page.title }}
-================
-
-<p class="meta">22 Nov 2011 - San Francisco</p>
-
 When Chris and I first started working on GitHub in late 2007, we split the work into two parts. Chris worked on the Rails app and I worked on Grit, the first ever Git bindings for Ruby. After six months of development, Grit had become complete enough to power GitHub during our public launch of the site and we were faced with an interesting question:
 
 Should we open source Grit or keep it proprietary?
@@ -29,7 +24,7 @@ If you're hiring, **the best technical interview possible** is the one you don't
 
 Once you've hired all those great people through their contributions, dedication to open source code is an amazingly effective way to **retain that talent**. Let's face it, great developers can take their pick of jobs right now. These same developers know the value of coding in the open and will want to build up a portfolio of projects they can show off to their friends and potential future employers. That's right, a paradox! In order to keep a killer developer happy, you have to help them become more attractive to other employers. But that's ok, because that's exactly the kind of developer you want to have working for you. So relax and let them work on open source or they'll go somewhere else where they can.
 
-When I start a new project, I assume it will eventually be open sourced (even if it's unlikely). This mindset leads to **effortless modularization**. If you think about how other people outside your company might use your code, you become much less likely to bake in proprietary configuration details or tightly coupled interfaces. This, in turn, leads to cleaner, more maintainable code. Even internal code should pretend to be open source code. 
+When I start a new project, I assume it will eventually be open sourced (even if it's unlikely). This mindset leads to **effortless modularization**. If you think about how other people outside your company might use your code, you become much less likely to bake in proprietary configuration details or tightly coupled interfaces. This, in turn, leads to cleaner, more maintainable code. Even internal code should pretend to be open source code.
 
 Have you ever written an amazing library or tool at one job and then left to join another company only to rewrite that code or remain miserable in its absence? I have, and it sucks. By getting code out in the public we can drastically **reduce duplication of effort**. Less duplication means more work towards things that matter.
 

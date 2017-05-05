@@ -3,10 +3,6 @@ layout: post
 title: node piping plugin
 ---
 
-<h1>{{ page.title }}</h1>
-
-12 Apil 2016 - Beijing
-
 <br>piping
 <br>There are already node "wrappers" that handle watching for file changes and restarting your application (such as node-supervisor), as well as reloading on crash, but I wasn't fond of having that. Piping adds "hot reloading" functionality to node, watching all your project files and reloading when anything changes, without requiring a "wrapper" binary.
 

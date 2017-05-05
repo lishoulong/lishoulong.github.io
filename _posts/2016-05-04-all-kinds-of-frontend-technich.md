@@ -3,10 +3,6 @@ layout: post
 title: all kinds of techniche conclusion
 ---
 
-<h1>{{ page.title }}</h1>
-
-18 May 2016 - Beijing
-
 generator分享
 
 对于generator，最为一种生成器，是第一个被引入JS中的生成器，在1980年前，generator的前身是由芝加哥大学（记着是这个大学）的一个教授和几个 学生一起研究出来的函数编程，重点是两部分，yield和next，继promise后又一个异步解决方案，生成器中的每个yield可以理解成把蛋糕切片， 各个yield组成各个断点，每次执行到yield就会中断，然后把yield后面的语句带入主进程，这时候就需要执行next让程序重新回到生成器中。相关技术链接：  

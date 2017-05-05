@@ -3,10 +3,6 @@ layout: post
 title: interview conclusion
 ---
 
-<h1>{{ page.title }}</h1>
-
-18 Apil 2016 - Beijing
-
 <br>最近面试遇到一个关于object.create方法的实现，当时回答想到的方法是通过直接new一个参数，当时面试官提到没法保证参数是构造函数。回来看了一下underscore源码发现了一种实现方法。
 
         var baseCreate = function(prototype) {

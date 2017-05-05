@@ -3,10 +3,6 @@ layout: post
 title: var,let and const
 ---
 
-<h1>{{ page.title }}</h1>
-
-26 March 2016 - Beijing
-
 <br>let:（1）它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。
 for example:
 
