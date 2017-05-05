@@ -11,8 +11,6 @@ tags:
 
 > 这篇文章转载自(https://tadeuzagallo.com/blog/react-native-bridge/)
 
-
-<div>
     <blockquote>如果您已经了解了rn（react-native）的基础，并且想了解js和native是如何交互的内部机制，那么欢迎看这篇文章。</blockquote>
 
     <br><b>Main Threads</b>
@@ -239,4 +237,3 @@ tags:
         }
 
     <br><b>The end</b>
-</div>
