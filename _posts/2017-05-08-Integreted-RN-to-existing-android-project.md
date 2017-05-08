@@ -153,7 +153,7 @@ tags:
 
 继续下一步，在AndroidManifest.xml中添加网络访问权限
 
-> <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 ## 3.创建Activity
 
