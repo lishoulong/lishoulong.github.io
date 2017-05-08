@@ -4,6 +4,7 @@ title:      "Bridging in React Native"
 subtitle:   "An in-depth look into React Native's core"
 date:       2017-05-04 12:00:00
 author:     "Fred"
+catalog:    true
 tags:
     - rn
     - native
