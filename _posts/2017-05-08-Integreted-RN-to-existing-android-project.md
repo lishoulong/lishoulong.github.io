@@ -31,7 +31,7 @@ tags:
 按照提示输入就行了。
 这一步完成之后，在项目的根目录下就会生成package.json这个文件，在dependencies中，加入rn的依赖，"react-native": "^0.44.0"，下一步输入：
 
-> npm install react@16.0.0-alpha.6 --save
+> npm install react@16.0.0-alpha.6 - -save
 
 用开安装react，然后再次输入
 
@@ -236,7 +236,7 @@ tags:
 
 没关系，用资源管理器打开你工程的根目录，在此目录下重新运行一个命令行并在其中输入如下命令
 
-> react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output app/src/main/assets/index.android.bundle --assets-dest app/src/main/res/
+> react-native bundle - -platform android - -dev false - -entry-file index.android.js - -bundle-output app/src/main/assets/index.android.bundle - -assets-dest app/src/main/res/
 
 完成之后assets目录下会生成以下两个文件
 
