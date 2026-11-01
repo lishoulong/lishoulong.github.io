@@ -1,36 +1,35 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "About"
+description: "Fred Lee is co-founder of Kiwoo, building AI agents and interactive products. Previously at ByteDance and 58.com."
 ---
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
+I&rsquo;m **Fred Lee**, co-founder of [Kiwoo](https://kiwoo.ai/). I lead technology and product engineering for interactive AI creation, and I build AI agents and interactive products.
 
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
+My work has moved between product engineering, developer platforms, and infrastructure — usually close to the tools other people build with.
 
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
+## What I do now
 
-<div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
-</div>
+At [Kiwoo](https://kiwoo.ai/), I lead technology and product engineering for interactive AI creation. That means working across the product surface and the systems underneath it, with a focus on AI agents and interactive products.
 
-## Tech Stack
+I also keep an early-stage [workflow-platform](https://github.com/lishoulong/workflow-platform) project on GitHub. It is a work in progress, not a finished or polished release.
 
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+## How I got here
 
-## Features
+I began my career as a recruiter. I taught myself to program, and eventually moved into engineering.
 
-Here are certain features of this site.
+At 58.com, I built React Native and hot-update infrastructure.
 
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
+At ByteDance, I helped build developer tools and the runtime for Douyin mini-programs, and I led frontend engineering for live-streaming monetization.
 
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+Today, I&rsquo;m building AI agents and interactive products at Kiwoo.
+
+## What I care about
+
+I like working on products where the engineering is close to the user experience: tools that make hard things feel simple, developer platforms that help other people ship, and AI products that expand what people can create.
+
+## Contact
+
+For investor and partnership conversations, email me at [lishoulong@outlook.com](mailto:lishoulong@outlook.com).
+
+You can also find me on [GitHub](https://github.com/lishoulong) and [LinkedIn](https://www.linkedin.com/in/fred-lee-84073276/).

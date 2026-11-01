@@ -3,161 +3,1205 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
-import Hr from "@components/Hr.astro";
-import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import { SOCIALS } from "@config";
+import { SITE, SOCIALS } from "@config";
 
 const posts = await getCollection("blog");
-
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
-const socialCount = SOCIALS.filter(social => social.active).length;
+// The only featured post is the old theme setup article. It stays available
+// at its existing route, but it is not Fred's work and should not be promoted
+// on the homepage. The two new essays are surfaced separately, and everything
+// else is presented as the writing archive.
+const featuredArticleSlugs = [
+  "designing-effective-subagents",
+  "agent-context-and-session-design",
+];
+const featuredArticleSlugSet = new Set(featuredArticleSlugs);
+
+const featuredArticles = featuredArticleSlugs.flatMap(slug => {
+  const post = posts.find(post => post.slug === slug);
+  return post ? [post] : [];
+});
+
+const archivePosts = sortedPosts.filter(
+  ({ data, slug }) => !data.featured && !featuredArticleSlugSet.has(slug)
+);
+
+const recentArchivePosts = archivePosts.slice(0, 4);
+const archiveYears = archivePosts.map(({ data }) =>
+  new Date(data.pubDatetime).getUTCFullYear()
+);
+const archiveRange = archiveYears.length
+  ? `${Math.min(...archiveYears)}–${Math.max(...archiveYears)}`
+  : "";
+
+const socialHref = (name: "Github" | "LinkedIn" | "Mail") =>
+  SOCIALS.find(social => social.name === name && social.active)?.href ?? "";
+
+const githubUrl = socialHref("Github");
+const linkedinUrl = socialHref("LinkedIn");
+const mailHref = socialHref("Mail");
+const emailAddress = mailHref.replace(/^mailto:/, "");
+
+const formatPostDate = (date: Date) =>
+  date.toLocaleDateString("en", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 ---
 
-<Layout>
+<Layout
+  title={`${SITE.author} — Co-founder at Kiwoo`}
+  description={SITE.desc}
+  ogImage={SITE.ogImage}
+>
   <Header />
   <main id="main-content">
-    <section id="hero">
-      <h1>Mingalaba</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
-      </p>
-      <p>
-        Read the blog posts or check
-        <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
-      {
-        // only display if at least one social link is enabled
-        socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
-            <Socials />
+    <div class="hero-band">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Co-founder at Kiwoo
+          </p>
+          <h1 id="hero-title">Fred Lee</h1>
+          <p class="lede">
+            Building <span class="accent">AI agents</span> and interactive products.
+          </p>
+          <p class="intro">
+            I&rsquo;m co-founder at
+            <a
+              class="inline-link"
+              href="https://kiwoo.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Kiwoo<span class="sr-only"> (opens in a new tab)</span></a
+            >, where I lead technology and product engineering for interactive
+            AI creation. Previously, I helped build developer tools and the
+            runtime for Douyin mini-programs and led frontend engineering for
+            live-streaming monetization at ByteDance. Before that, I built React
+            Native and hot-update infrastructure at 58.com.
+          </p>
+          <p class="origin">
+            <span class="origin-mark" aria-hidden="true">↳</span>
+            Began as a recruiter. Self-taught programmer.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button button-primary"
+              href="https://kiwoo.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore Kiwoo
+              <span aria-hidden="true">↗</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a class="button button-secondary" href="/about/">
+              Read my story
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
-        )
-      }
+        </div>
+
+        <aside class="now-card" aria-label="Current focus">
+          <div class="now-top">
+            <span>Current focus</span>
+          </div>
+          <p class="now-kicker">Technology &amp; product engineering</p>
+          <h2>Kiwoo</h2>
+          <p>
+            Interactive AI creation, built around AI agents and products people
+            can actually use.
+          </p>
+          <a
+            class="now-link"
+            href="https://kiwoo.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            kiwoo.ai <span aria-hidden="true">↗</span>
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <ul class="chips" aria-label="Areas of focus">
+            <li>AI agents</li>
+            <li>Interactive products</li>
+            <li>Product engineering</li>
+          </ul>
+        </aside>
+      </section>
+    </div>
+
+    <section class="page-section" aria-labelledby="work-heading">
+      <div class="section-heading">
+        <span class="section-number" aria-hidden="true">01</span>
+        <div>
+          <h2 id="work-heading">Selected work</h2>
+          <p>
+            Building at the intersection of AI, product, and developer tools.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-grid">
+        <article class="project-card">
+          <p class="project-status">Company · Current</p>
+          <h3>Kiwoo</h3>
+          <p class="project-role">
+            Co-founder, technology and product engineering
+          </p>
+          <p class="project-description">
+            Interactive AI creation. I lead technology and product engineering,
+            from the product surface to the systems underneath it.
+          </p>
+          <ul class="project-tags" aria-label="Kiwoo focus areas">
+            <li>AI agents</li>
+            <li>Interactive creation</li>
+          </ul>
+          <a
+            class="project-link"
+            href="https://kiwoo.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit kiwoo.ai
+            <span aria-hidden="true">↗</span>
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <p class="project-status">Project · Early stage</p>
+          <h3>workflow-platform</h3>
+          <p class="project-role">An early-stage workflow-platform project</p>
+          <p class="project-description">
+            An early-stage project exploring AI agent workflows. It is still
+            taking shape and is not a finished or polished release.
+          </p>
+          <ul class="project-tags" aria-label="Project details">
+            <li>Work in progress</li>
+            <li>On GitHub</li>
+          </ul>
+          <a
+            class="project-link"
+            href="https://github.com/lishoulong/workflow-platform"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on GitHub
+            <span aria-hidden="true">↗</span>
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </article>
+      </div>
     </section>
 
-    <Hr />
+    <section class="page-section" aria-labelledby="experience-heading">
+      <div class="section-heading">
+        <span class="section-number" aria-hidden="true">02</span>
+        <div>
+          <h2 id="experience-heading">Experience</h2>
+          <p>
+            A path from recruiting into product engineering, developer
+            platforms, and AI.
+          </p>
+        </div>
+      </div>
 
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured">
-            <h2>Featured</h2>
-            <ul>
-              {featuredPosts.map(({ data, slug }) => (
-                <Card
-                  href={`/posts/${slug}/`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <div class="entry-head">
+            <h3>Kiwoo</h3>
+            <span class="entry-tag">Current</span>
+          </div>
+          <p class="entry-role">Co-founder</p>
+          <p class="entry-description">
+            Leading technology and product engineering for interactive AI
+            creation, and building AI agents and interactive products.
+          </p>
+        </li>
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts">
-          <h2>Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              ({ data, slug }, index) =>
-                index < 4 && (
-                  <Card
-                    href={`/posts/${slug}/`}
-                    frontmatter={data}
-                    secHeading={false}
-                  />
-                )
-            )}
-          </ul>
-        </section>
-      )
-    }
+        <li class="timeline-item">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <div class="entry-head">
+            <h3>ByteDance</h3>
+            <span class="entry-tag">Developer platforms</span>
+          </div>
+          <p class="entry-role">Developer tools &amp; frontend engineering</p>
+          <p class="entry-description">
+            Helped build developer tools and the runtime for Douyin
+            mini-programs. Led frontend engineering for live-streaming
+            monetization.
+          </p>
+        </li>
 
-    <div class="all-posts-btn-wrapper">
-      <LinkButton href="/posts/">
-        All Posts
-        <svg xmlns="http://www.w3.org/2000/svg"
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path>
-        </svg>
-      </LinkButton>
-    </div>
+        <li class="timeline-item">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <div class="entry-head">
+            <h3>58.com</h3>
+            <span class="entry-tag">Mobile infrastructure</span>
+          </div>
+          <p class="entry-role">React Native &amp; hot-update infrastructure</p>
+          <p class="entry-description">
+            Built React Native and hot-update infrastructure.
+          </p>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <div class="entry-head">
+            <h3>Earlier</h3>
+            <span class="entry-tag">Beginnings</span>
+          </div>
+          <p class="entry-role">Recruiter → self-taught programmer</p>
+          <p class="entry-description">
+            Began my career as a recruiter, then taught myself to program and
+            moved into engineering.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="page-section" aria-labelledby="writing-heading">
+      <div class="section-heading">
+        <span class="section-number" aria-hidden="true">03</span>
+        <div>
+          <div class="writing-heading-row">
+            <h2 id="writing-heading">Writing</h2>
+            <span class="pill-label">Latest</span>
+          </div>
+          <p>
+            Recent essays on agent design and context management, plus older
+            technical notes from the archive.
+          </p>
+        </div>
+      </div>
+
+      <div class="featured-writing">
+        {
+          featuredArticles.map(({ data, slug }) => (
+            <article class="article-card">
+              <div class="article-card-top">
+                <span class="article-kicker">New essay</span>
+                <time
+                  class="article-date"
+                  datetime={data.pubDatetime.toISOString()}
+                >
+                  {formatPostDate(data.pubDatetime)}
+                </time>
+              </div>
+              <h3>
+                <a href={`/posts/${slug}/`}>{data.title}</a>
+              </h3>
+              <p class="article-description">{data.description}</p>
+              <ul class="article-tags" aria-label={`Topics in ${data.title}`}>
+                {data.tags.slice(0, 3).map(tag => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+              <a class="article-link" href={`/posts/${slug}/`}>
+                Read essay <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="archive-head">
+        <div class="writing-heading-row">
+          <h3>Older technical notes</h3>
+          <span class="pill-label">Archive</span>
+        </div>
+        <p>
+          {
+            archiveRange
+              ? `Notes from ${archiveRange}, kept online as an archive of earlier engineering work.`
+              : "Notes from earlier in my engineering career, kept online as an archive."
+          }
+        </p>
+      </div>
+
+      <ul class="archive-list">
+        {
+          recentArchivePosts.map(({ data, slug }) => (
+            <li>
+              <a class="archive-row" href={`/posts/${slug}/`}>
+                <span class="archive-copy">
+                  <span class="archive-title">{data.title}</span>
+                  <span class="archive-description">{data.description}</span>
+                </span>
+                <span class="archive-meta">
+                  <span class="archive-badge">Archive</span>
+                  <time datetime={data.pubDatetime.toISOString()}>
+                    {formatPostDate(data.pubDatetime)}
+                  </time>
+                  <span class="archive-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="writing-actions">
+        <a class="text-link" href="/posts/">
+          Browse all posts <span aria-hidden="true">→</span>
+        </a>
+        <a class="text-link" href="/tags/">
+          Browse by tag <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="contact-section" aria-labelledby="contact-heading">
+      <div class="contact-card">
+        <div class="contact-copy">
+          <p class="eyebrow contact-eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            04 — Contact
+          </p>
+          <h2 id="contact-heading">
+            For investors and international partners.
+          </h2>
+          <p>
+            I&rsquo;m always glad to meet people thinking about AI agents,
+            interactive products, and developer platforms. Email is the best way
+            to reach me.
+          </p>
+        </div>
+
+        <div class="contact-side">
+          <a class="contact-email" href={mailHref}>
+            {emailAddress}
+            <span aria-hidden="true">→</span>
+          </a>
+          <div class="contact-links">
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              GitHub
+              <span aria-hidden="true">↗</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+              <span aria-hidden="true">↗</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />
 </Layout>
 
 <style>
-  /* ===== Hero Section ===== */
-  #hero {
-    @apply pb-6 pt-8;
+  /* ===== Hero ===== */
+  .hero-band {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgb(var(--color-border));
   }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
+  .hero-band::before {
+    content: "";
+    position: absolute;
+    top: -16rem;
+    right: -12rem;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgba(var(--color-accent), 0.16) 0%,
+      transparent 68%
+    );
+    pointer-events: none;
   }
-  #hero .rss-link {
-    @apply mb-6;
+  .hero-band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      rgba(var(--color-text-base), 0.22) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    mask-image: linear-gradient(115deg, transparent 38%, #000 100%);
+    opacity: 0.28;
+    pointer-events: none;
   }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2.25rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
-  #hero p {
-    @apply my-2;
+  .hero-copy {
+    min-width: 0;
   }
-  .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
-  .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
+  .eyebrow-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: none;
+    border-radius: 9999px;
+    background: rgb(var(--color-accent));
+    box-shadow: 0 0 0 4px rgba(var(--color-accent), 0.12);
+  }
+  .hero h1 {
+    margin-top: 1rem;
+    font-size: clamp(3.25rem, 11vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 0.94;
+  }
+  .lede {
+    max-width: 34rem;
+    margin-top: 1.4rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.4;
+  }
+  .accent {
+    color: rgb(var(--color-accent));
+  }
+  .intro {
+    max-width: 36rem;
+    margin-top: 1.2rem;
+    color: rgba(var(--color-text-base), 0.8);
+    font-size: 0.96rem;
+    line-height: 1.8;
+  }
+  .inline-link {
+    color: rgb(var(--color-text-base));
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--color-accent));
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+  .inline-link:hover {
+    color: rgb(var(--color-accent));
+  }
+  .origin {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+    color: rgba(var(--color-text-base), 0.74);
+    font-size: 0.76rem;
+    letter-spacing: 0.025em;
+  }
+  .origin-mark {
+    color: rgb(var(--color-accent));
+    font-size: 1rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 0.72rem 1.1rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      opacity 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+  .button-primary {
+    background: rgb(var(--color-accent));
+    color: rgb(var(--color-fill));
+  }
+  a:focus-visible {
+    outline: 2px dashed rgb(var(--color-accent));
+    outline-offset: 3px;
+  }
+  .button-primary:focus-visible {
+    outline-color: rgb(var(--color-text-base));
+  }
+  .contact-card a:focus-visible {
+    outline-color: rgb(var(--color-fill));
+  }
+  .button-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+  .button-secondary {
+    border-color: rgb(var(--color-border));
+    color: rgb(var(--color-text-base));
+  }
+  .button-secondary:hover {
+    border-color: rgb(var(--color-accent));
+    color: rgb(var(--color-accent));
+    transform: translateY(-1px);
   }
 
-  /* ===== Featured & Recent Posts Sections ===== */
-  #featured,
-  #recent-posts {
-    @apply pb-6 pt-12;
+  /* ===== Current focus card ===== */
+  .now-card {
+    position: relative;
+    align-self: start;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 1.25rem;
+    padding: 1.4rem;
+    background: rgba(var(--color-card), 0.3);
+    box-shadow: 0 30px 80px -60px rgba(var(--color-text-base), 0.8);
+    overflow: hidden;
   }
-  #featured h2,
-  #recent-posts h2 {
-    @apply text-2xl font-semibold tracking-wide;
+  .now-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.4rem;
+    right: 1.4rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgb(var(--color-accent)), transparent);
   }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
+  .now-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .now-badge {
+    border: 1px solid rgb(var(--color-accent));
+    border-radius: 9999px;
+    padding: 0.18rem 0.48rem;
+    color: rgb(var(--color-accent));
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+  .now-kicker {
+    margin-top: 1.25rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  .now-card h2 {
+    margin-top: 0.2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+  .now-card > p:not(.now-kicker) {
+    margin-top: 0.9rem;
+    color: rgba(var(--color-text-base), 0.8);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+  .now-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.15rem;
+    color: rgb(var(--color-accent));
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.24em;
+  }
+  .chips,
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    list-style: none;
+  }
+  .chips {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(var(--color-border));
+  }
+  .chips li,
+  .project-tags li {
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 9999px;
+    padding: 0.26rem 0.55rem;
+    color: rgba(var(--color-text-base), 0.78);
+    font-size: 0.67rem;
+    letter-spacing: 0.025em;
+    line-height: 1.4;
+  }
+
+  /* ===== Shared section layout ===== */
+  .page-section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .page-section + .page-section {
+    border-top: 1px solid rgb(var(--color-border));
+  }
+  .section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .section-number {
+    padding-top: 0.3rem;
+    color: rgb(var(--color-accent));
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+  .section-heading h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+  .section-heading p {
+    max-width: 34rem;
+    margin-top: 0.55rem;
+    color: rgba(var(--color-text-base), 0.76);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  /* ===== Selected work ===== */
+  .work-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 1rem;
+    padding: 1.35rem;
+    background: rgba(var(--color-card), 0.2);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+  .project-card:hover {
+    border-color: rgba(var(--color-accent), 0.65);
+    background: rgba(var(--color-card), 0.34);
+    transform: translateY(-2px);
+  }
+  .project-status {
+    color: rgb(var(--color-accent));
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  .project-card h3 {
+    margin-top: 0.8rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+  .project-role {
+    margin-top: 0.25rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+  .project-description {
+    flex: 1;
+    margin-top: 0.8rem;
+    color: rgba(var(--color-text-base), 0.8);
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+  .project-tags {
+    margin-top: 1.1rem;
+  }
+  .project-tags li {
+    color: rgba(var(--color-text-base), 0.7);
+    font-size: 0.65rem;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    margin-top: 1.15rem;
+    color: rgb(var(--color-text-base));
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--color-accent));
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.24em;
+  }
+  .project-link:hover {
+    color: rgb(var(--color-accent));
+  }
+
+  /* ===== Experience ===== */
+  .timeline {
+    margin-top: 2rem;
+    padding: 0;
+    list-style: none;
+  }
+  .timeline-item {
+    position: relative;
+    margin-left: 0.25rem;
+    border-left: 1px solid rgb(var(--color-border));
+    padding-bottom: 1.65rem;
+    padding-left: 1.5rem;
+  }
+  .timeline-item:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+  .timeline-marker {
+    position: absolute;
+    top: 0.35rem;
+    left: -4.5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgb(var(--color-accent));
+    box-shadow: 0 0 0 4px rgb(var(--color-fill));
+  }
+  .entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .entry-head h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .entry-tag {
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 9999px;
+    padding: 0.16rem 0.45rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .entry-role {
+    margin-top: 0.22rem;
+    color: rgb(var(--color-accent));
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+  .entry-description {
+    max-width: 36rem;
+    margin-top: 0.45rem;
+    color: rgba(var(--color-text-base), 0.8);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  /* ===== Writing archive ===== */
+  .writing-heading-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pill-label {
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 9999px;
+    padding: 0.18rem 0.5rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .featured-writing {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .article-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 1rem;
+    padding: 1.35rem;
+    background: rgba(var(--color-card), 0.2);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+  .article-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.35rem;
+    right: 1.35rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgb(var(--color-accent)), transparent);
+  }
+  .article-card:hover {
+    border-color: rgba(var(--color-accent), 0.65);
+    background: rgba(var(--color-card), 0.34);
+    transform: translateY(-2px);
+  }
+  .article-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .article-kicker {
+    color: rgb(var(--color-accent));
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .article-date {
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.68rem;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .article-card h3 {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+  .article-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .article-card h3 a:hover {
+    color: rgb(var(--color-accent));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
+  .article-description {
+    flex: 1;
+    margin-top: 0.6rem;
+    color: rgba(var(--color-text-base), 0.8);
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .article-tags li {
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 9999px;
+    padding: 0.2rem 0.48rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.61rem;
+    line-height: 1.4;
+  }
+  .article-link {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 1.1rem;
+    color: rgb(var(--color-text-base));
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--color-accent));
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.24em;
+  }
+  .article-link:hover {
+    color: rgb(var(--color-accent));
+  }
+  .archive-head {
+    margin-top: 2.25rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgb(var(--color-border));
+  }
+  .archive-head h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .archive-head p {
+    max-width: 34rem;
+    margin-top: 0.35rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+  .archive-list {
+    margin-top: 1rem;
+    padding: 0;
+    border-top: 1px solid rgb(var(--color-border));
+    list-style: none;
+  }
+  .archive-list > li {
+    border-bottom: 1px solid rgb(var(--color-border));
+  }
+  .archive-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.4rem 1.25rem;
+    margin: 0 -0.7rem;
+    border-radius: 0.6rem;
+    padding: 0.95rem 0.7rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+  .archive-row:hover {
+    background: rgba(var(--color-card), 0.35);
+  }
+  .archive-copy {
+    min-width: 0;
+  }
+  .archive-title {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+  }
+  .archive-description {
+    display: block;
+    margin-top: 0.15rem;
+    overflow: hidden;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.74rem;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .archive-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: rgba(var(--color-text-base), 0.72);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .archive-badge {
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 9999px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.59rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .archive-arrow {
+    color: rgb(var(--color-accent));
+    font-size: 1rem;
+  }
+  .writing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 1.4rem;
+  }
+  .text-link {
+    color: rgb(var(--color-accent));
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.24em;
+  }
+
+  /* ===== Contact ===== */
+  .contact-section {
+    padding-bottom: 4rem;
+  }
+  .contact-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.4rem;
+    padding: 1.6rem;
+    background: rgb(var(--color-text-base));
+    color: rgb(var(--color-fill));
+  }
+  .contact-card::after {
+    content: "";
+    position: absolute;
+    right: -8rem;
+    bottom: -12rem;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgba(var(--color-accent), 0.42) 0%,
+      transparent 68%
+    );
+    pointer-events: none;
+  }
+  .contact-copy,
+  .contact-side {
+    position: relative;
+    z-index: 1;
+  }
+  .contact-eyebrow {
+    color: rgba(var(--color-fill), 0.74);
+  }
+  .contact-card h2 {
+    max-width: 26rem;
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+  }
+  .contact-card .contact-copy > p:not(.contact-eyebrow) {
+    max-width: 34rem;
+    margin-top: 0.9rem;
+    color: rgba(var(--color-fill), 0.76);
+    font-size: 0.86rem;
+    line-height: 1.75;
+  }
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-bottom: 1px solid rgba(var(--color-fill), 0.35);
+    padding-bottom: 0.28rem;
+    color: rgb(var(--color-fill));
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+  .contact-email:hover {
+    border-bottom-color: rgb(var(--color-fill));
+  }
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.3rem;
+  }
+  .contact-links a {
+    border-bottom: 1px solid transparent;
+    color: rgba(var(--color-fill), 0.78);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+  .contact-links a:hover {
+    border-bottom-color: rgb(var(--color-fill));
+    color: rgb(var(--color-fill));
+  }
+
+  @media (min-width: 640px) {
+    .hero {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+      align-items: start;
+      gap: 2rem;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    .work-grid,
+    .featured-writing {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .contact-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) auto;
+      align-items: end;
+      gap: 2rem;
+      padding: 2.1rem;
+    }
+    .contact-side {
+      text-align: right;
+    }
+    .contact-links {
+      justify-content: flex-end;
+    }
+    .contact-card h2 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .archive-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .archive-meta {
+      margin-top: 0.25rem;
+    }
+    .archive-description {
+      white-space: normal;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button,
+    .project-card,
+    .article-card,
+    .archive-row {
+      transition: none;
+    }
+    .button-primary:hover,
+    .button-secondary:hover,
+    .project-card:hover,
+    .article-card:hover {
+      transform: none;
+    }
   }
 </style>
